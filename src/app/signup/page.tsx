@@ -1,23 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState , useEffect } from "react";
+import { useAuthStore } from "@/Store/useAuthStore";
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { Eye, EyeOff, Moon, Sun, Check } from "lucide-react";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [ confirmPassword, setConfirmPassword] = useState("");
+  const { user , signup } = useAuthStore();
+  const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
-  const [dark, setDark] = useState(false);
+
   const [form, setForm] = useState({
-    name: "",
+    fullname: "",
     username: "",
     email: "",
     password: "",
-    confirm: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  useEffect(()=>{
+      if(user){
+        router.push('/');
+      }
+    },[user,router]);
+
+
+  const handleChange = (e :any )=> {
+    setForm((f) => ({...f , [e.target.name]:e.target.value }));
+  }
+
+  const handleSubmit = (e:any)=> {
+    console.log(form);
+    e.preventDefault();
+    signup(form);
+  }
 
   const passwordStrength = (() => {
     const p = form.password;
@@ -64,9 +82,9 @@ export default function SignUpPage() {
                       Full Name
                     </label>
                     <input
-                      name="name"
+                      name="fullname"
                       type="text"
-                      value={form.name}
+                      value={form.fullname}
                       onChange={handleChange}
                       placeholder="Ahmed P."
                       className="w-full px-4 py-2.5 dark:placeholder:text-zinc-100 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -155,11 +173,11 @@ export default function SignUpPage() {
                     <input
                       name="confirm"
                       type={showConfirm ? "text" : "password"}
-                      value={form.confirm}
-                      onChange={handleChange}
+
+                      onChange={(e)=> setConfirmPassword(e.target.value)}
                       placeholder="••••••••"
                       className={`w-full px-4 dark:placeholder:text-zinc-100 py-2.5 pr-11 rounded-xl border bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                        form.confirm && form.confirm !== form.password
+                        confirmPassword && confirmPassword !== form.password
                           ? "border-red-400 dark:border-red-500"
                           : "border-gray-200 dark:border-white/10"
                       }`}
@@ -169,7 +187,7 @@ export default function SignUpPage() {
                       onClick={() => setShowConfirm((v) => !v)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                     >
-                      {form.confirm && form.confirm === form.password ? (
+                      {confirmPassword && confirmPassword === form.password ? (
                         <Check size={16} className="text-green-500" />
                       ) : showConfirm ? (
                         <EyeOff size={16} />
@@ -178,7 +196,7 @@ export default function SignUpPage() {
                       )}
                     </button>
                   </div>
-                  {form.confirm && form.confirm !== form.password && (
+                  {confirmPassword && confirmPassword !== form.password && (
                     <p className="text-xs text-red-400 mt-1">Passwords don&apos;t match</p>
                   )}
                 </div>
@@ -186,8 +204,8 @@ export default function SignUpPage() {
 
 
                 {/* Submit */}
-                <button className="w-full mt-3
-                 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 active:scale-[.98] text-white text-sm font-semibold transition-all duration-150">
+                <button  onClick={handleSubmit} className="w-full mt-3 
+                py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 active:scale-[.98] text-white text-sm font-semibold transition-all duration-150">
                   Create Account
                 </button>
               </div>

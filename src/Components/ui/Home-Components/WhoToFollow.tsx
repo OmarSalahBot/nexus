@@ -1,44 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFollowStore } from "@/Store/useFollowStore";
 
-const users = [
-  { id: 1, name: "Jack Smith",   handle: "@jacksmith",    initials: "JS", color: "bg-emerald-500" },
-  { id: 2, name: "Burak Orkmez", handle: "@burakorkmezz", initials: "BO", color: "bg-blue-600"    },
-  { id: 3, name: "Bob Doe",      handle: "@bobdoe",       initials: "BD", color: "bg-purple-500"  },
-];
+interface WhoToFollowProps {
+  user:any
+}
 
-export default function WhoToFollow() {
-  const [followed, setFollowed] = useState<number[]>([]);
+export default function WhoToFollow({user}:WhoToFollowProps) {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const { makeRemoveFollow } = useFollowStore();
+  const colorsMap: Record<string, string> = {
+    emerald: "#10b981",
+    blue: "#3b82f6",
+    purple: "#a855f7",
+    orange: "#f97316",
+    teal: "#14b8a6",
+  };
 
-  const toggle = (id: number) =>
-    setFollowed((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-    );
+  const userBg = colorsMap[user?.themeColor] || "#3b82f6";
+
+  const handleFollow = (id:any) => {
+    setIsFollowing(!isFollowing);
+    makeRemoveFollow(id);
+  }
+
 
   return (
-    <div className="bg-white rounded-2xl dark:border-zinc-800 dark:bg-neutral-900 border sticky top-25 border-gray-100 shadow-sm p-5 w-full max-w-sm mx-auto">
-      <h2 className="text-lg font-bold text-gray-900 dm-sans mb-4 dark:text-zinc-100 ">Who to Follow</h2>
-
-      <div className="flex flex-col divide-y  divide-gray-200">
-        {users.map((user) => {
-          const isFollowing = followed.includes(user.id);
-          return (
-            <div key={user.id} className="flex items-center dark:border-zinc-800  justify-between py-3 first:pt-0 last:pb-0">
+    <>
+            <div key={user._id} className="flex items-center dark:border-zinc-800  justify-between py-3 first:pt-0 last:pb-0">
               {/* Avatar + Info */}
               <div className="flex items-center  gap-3">
-                <div className={`w-11 h-11 rounded-full ${user.color} flex items-center justify-center shrink-0`}>
-                  <span className="text-white text-sm font-bold">{user.initials}</span>
+                <div className={`w-11 h-11 rounded-full select-none  flex items-center justify-center shrink-0`}  style={{ backgroundColor: userBg }}>
+                  {user?.profilePic ? 
+            (
+              <img src={user?.profilePic} alt="avatar" className="w-full h-full rounded-full object-cover" />
+            ) :
+            (
+              <span className="text-white text-sm font-semibold tracking-wide">
+              {user?.fullname?.slice(0,2)}
+              </span>
+            ) 
+          }
                 </div>
                 <div>
-                  <p className="text-sm font-semibold dm-sans text-gray-900 leading-tight dark:text-zinc-100 ">{user.name}</p>
-                  <p className="text-xs text-gray-400 font-mono ">{user.handle}</p>
+                  <a href={`/profile/${user?.username}`} className="text-sm  hover:underline font-semibold dm-sans text-gray-900 leading-tight dark:text-zinc-100 ">{user.fullname}</a>
+                  <p className="text-xs text-gray-400 font-mono ">@{user.username}</p>
                 </div>
               </div>
 
               {/* Follow Button */}
               <button
-                onClick={() => toggle(user.id)}
+                onClick={() => handleFollow(user._id)}
                 className={`px-2 py-2 ml-10 w-27 flex justify-center  hover:bg-sky-500 hover:text-white rounded-full  text-sm font-medium border transition-all duration-200 ${
                       isFollowing
                         ? "bg-blue-500 text-white border-blue-500 hover:bg-blue-600"
@@ -48,9 +61,9 @@ export default function WhoToFollow() {
                 {isFollowing ? "Following" : "Follow"}
               </button>
             </div>
-          );
-        })}
-      </div>
-    </div>
+
+
+
+    </>
   );
 }

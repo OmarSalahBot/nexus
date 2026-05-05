@@ -1,14 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff, Moon, Sun } from "lucide-react";
+import { useAuthStore } from "@/Store/useAuthStore";
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [dark, setDark] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login , user } = useAuthStore();
+  const router = useRouter();
+  const [dataForm , setDataForm] = useState({
+    email:"",
+    password:""
+  });
+  console.log(dataForm);
+  useEffect(()=>{
+    if(user){
+      router.push('/');
+    }
+  },[user,router]);
+
+  const handleChange = (e :any )=> {
+    setDataForm((f) => ({...f , [e.target.name]:e.target.value }));
+  }
+
+  const handleSubmit = (e:any)=> {
+    e.preventDefault();
+    login(dataForm);
+  }
 
   return (
 
@@ -38,9 +59,10 @@ export default function LoginPage() {
                     Email
                   </label>
                   <input
+                    name="email"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+
+                    onChange={(e) => handleChange(e)}
                     placeholder="you@example.com"
                     className="w-full px-4 py-2.5 dark:placeholder:text-zinc-100 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   />
@@ -55,9 +77,9 @@ export default function LoginPage() {
                   </div>
                   <div className="relative">
                     <input
+                      name="password"
                       type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => handleChange(e)}
                       placeholder="*******"
                       className="w-full px-4 py-2.5 pr-11 dark:placeholder:text-zinc-100 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
@@ -73,8 +95,10 @@ export default function LoginPage() {
 
                 {/* Submit */}
                 <button
+                  onClick={(e)=>handleSubmit(e)}
                   className="w-full py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 active:scale-[.98] text-white text-sm font-semibold transition-all duration-150 mt-2"
                 >
+                  
                   Sign In
                 </button>
               </div>

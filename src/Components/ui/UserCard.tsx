@@ -3,16 +3,6 @@
 import { MapPin, Link2 , Calendar } from "lucide-react";
 import { useAuthStore } from "@/Store/useAuthStore";
 
-interface ProfileCardProps {
-  name?: string;
-  username?: string;
-  bio?: string;
-  following?: number;
-  followers?: string;
-  location?: string;
-  website?: string;
-  initials?: string;
-}
 
 export default function UserCard() {
   const {user} = useAuthStore();

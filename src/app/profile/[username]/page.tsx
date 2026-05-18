@@ -23,70 +23,15 @@ import {
 } from "lucide-react";
 import { useAuthStore } from "@/Store/useAuthStore";
 import { useFollowStore } from "@/Store/useFollowStore";
+import LoadingScreen from "@/Components/LoadingScreen";
 
-// ─── Static Data ───────────────────────────────────────────────────────────────
-
-const user = {
-  name: "Ahmed P.",
-  username: "@asaprogrammerr",
-  initials: "AP",
-  bio: "Software Engineer · Building things with Next.js & TypeScript",
-  location: "Turkey",
-  website: "youtube.com/asaprogrammerr",
-  joined: "January 2022",
-  following: 500,
-  followers: 4200,
-};
-
-const posts = [
-  {
-    id: 1,
-    content:
-      "Who is learning Next.js in 2025 with me? ✨ The App Router just changed everything about how I think about full-stack.",
-    tags: ["#NextJS", "#WebDev"],
-    time: "17h ago",
-    likes: 2400,
-    comments: 184,
-    reposts: 312,
-    image: true,
-  },
-  {
-    id: 2,
-    content:
-      "TypeScript generics are actually not that scary once you see the pattern. Here's a simple trick that changed everything for me 🧵",
-    tags: ["#TypeScript", "#Dev"],
-    time: "2d ago",
-    likes: 1800,
-    comments: 97,
-    reposts: 210,
-    image: false,
-  },
-  {
-    id: 3,
-    content:
-      "Shipped a new open source tool today! It handles server actions in Next.js with full type-safety. Check it out 🚀",
-    tags: ["#OpenSource", "#NextJS"],
-    time: "5d ago",
-    likes: 3100,
-    comments: 240,
-    reposts: 520,
-    image: false,
-  },
-];
-
-const tabs = ["Posts", "Likes"];
-
-// ─── Helpers ───────────────────────────────────────────────────────────────────
-
-const fmt = (n: number) =>
-  n >= 1000 ? (n / 1000).toFixed(1).replace(".0", "") + "k" : String(n);
 
 
 // ─── Profile Page ──────────────────────────────────────────────────────────────
 
 export default function ProfilePage() {
         const params = useParams();
-    const { getUserPosts , userProfilePosts , userProfile } = usePostStore();
+    const { getUserPosts , userProfilePosts , userProfile , isGettingPosts } = usePostStore();
     const { user } = useAuthStore();
   const [dark, setDark] = useState(false);
   const [activeTab, setActiveTab] = useState("Posts");
@@ -98,7 +43,6 @@ export default function ProfilePage() {
 
   useEffect(()=>{
     getUserPosts(params.username);
-
   },[]);
 
   useEffect(() => {
@@ -120,6 +64,8 @@ export default function ProfilePage() {
     setFollowing((f) => !f);
     makeRemoveFollow(userProfile?.profileOwner._id);
   }
+
+  if(isGettingPosts) return <LoadingScreen/>;
 
   return (
 

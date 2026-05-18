@@ -22,12 +22,15 @@ function AuthProvider( { children }: AuthProviderProps ) {
     },[]);
 
     useEffect(()=>{
-      if(user){
-        router.push('/')
-      }else{
-        router.push('/login')
+      if(user && (pathname === '/login' || pathname === '/signup')){
+      router.push('/');
+      }
+      if(!user && pathname !== '/login' && pathname !== '/signup'){
+      router.push('/login');
       }
     },[user])
+
+    console.log(pathname)
 
     if(isCheckingAuth) return <LoadingScreen />;
 

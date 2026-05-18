@@ -29,7 +29,7 @@ function page() {
     }
       getAllPosts();
       checkAuth();
-    }, [getAllPosts]);
+    }, [getAllPosts , user]);
 
 
   return (

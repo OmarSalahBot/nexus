@@ -31,6 +31,7 @@ function page() {
       if(user){
       getAllPosts();
       }
+
     }, [getAllPosts , user]);
 
 

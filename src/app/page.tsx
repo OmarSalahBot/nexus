@@ -23,11 +23,18 @@ function page() {
     const { getAllPosts  , posts } = usePostStore();
 
 
-  useEffect(()=>{
+
+
+
+    useEffect(()=>{
+    if(!user){
+      router.replace('/login');
+    }
       if(user){
       getAllPosts();
       }
     }, [getAllPosts , user]);
+
 
 
   return (

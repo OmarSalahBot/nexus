@@ -49,8 +49,6 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
 
   const userBg = colorsMap[color] || "#3b82f6";
   const currentUserBg = colorsMap[user?.themeColor] || "#3b82f6";
-console.log(fullname)
-console.log(comments)
 
 
   useEffect(() => {
@@ -85,7 +83,6 @@ console.log(comments)
 
 
   const handleLike = (id : any) =>{
-    console.log("dont")
     setLiked(!liked);
     if(liked){
       setLikesCounter((v)=> v - 1);

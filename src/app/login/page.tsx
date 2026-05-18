@@ -16,7 +16,7 @@ export default function LoginPage() {
     email:"",
     password:""
   });
-  console.log(dataForm);
+
   useEffect(()=>{
     if(user){
       router.push('/');

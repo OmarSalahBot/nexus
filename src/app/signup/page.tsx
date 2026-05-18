@@ -20,11 +20,7 @@ export default function SignUpPage() {
     password: "",
   });
 
-  useEffect(()=>{
-      if(user){
-        router.push('/');
-      }
-    },[user,router]);
+
 
 
   const handleChange = (e :any )=> {

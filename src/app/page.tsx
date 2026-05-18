@@ -24,9 +24,6 @@ function page() {
 
 
   useEffect(()=>{
-    if(!user){
-      router.replace('/login');
-    }
       if(user){
       getAllPosts();
       }

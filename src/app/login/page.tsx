@@ -17,11 +17,6 @@ export default function LoginPage() {
     password:""
   });
 
-  useEffect(()=>{
-    if(user){
-      router.push('/');
-    }
-  },[user,router]);
 
   const handleChange = (e :any )=> {
     setDataForm((f) => ({...f , [e.target.name]:e.target.value }));

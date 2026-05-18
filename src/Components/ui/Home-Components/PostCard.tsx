@@ -5,6 +5,7 @@ import { formatRelativeTime } from "@/lib/formatDate";
 import { useEffect, useState } from "react";
 import { Heart, MessageCircle, Send } from "lucide-react";
 import { usePostStore } from "@/Store/usePostStore";
+import Link from 'next/link';
 
 
 interface Comment {
@@ -113,7 +114,7 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
           }
         </div>
         <div>
-          <a href={`/profile/${username}`} className="font-semibold hover:underline text-sm text-gray-900 dark:text-zinc-100">{fullname}</a>
+          <Link href={`/profile/${username}`} className="font-semibold hover:underline text-sm text-gray-900 dark:text-zinc-100">{fullname}</Link>
           <p className="text-xs text-gray-400">@{username} · {formatRelativeTime(date)}</p>
         </div>
       </div>

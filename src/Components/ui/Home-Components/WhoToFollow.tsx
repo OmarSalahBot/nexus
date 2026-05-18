@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useEffect, useState } from "react";
 import { useFollowStore } from "@/Store/useFollowStore";
 
@@ -44,7 +46,7 @@ export default function WhoToFollow({user}:WhoToFollowProps) {
           }
                 </div>
                 <div>
-                  <a href={`/profile/${user?.username}`} className="text-sm  hover:underline font-semibold dm-sans text-gray-900 leading-tight dark:text-zinc-100 ">{user.fullname}</a>
+                  <Link href={`/profile/${user?.username}`} className="text-sm  hover:underline font-semibold dm-sans text-gray-900 leading-tight dark:text-zinc-100 ">{user.fullname}</Link>
                   <p className="text-xs text-gray-400 font-mono ">@{user.username}</p>
                 </div>
               </div>

@@ -67,6 +67,7 @@ export const usePostStore = create<PostsState>((set , get)=>({
         }
     },
     getUserPosts: async(username)=>{
+        set({ isGettingPosts: true });
         try{
             const res = await api.get(`/post/user-posts/${username}`);
             set({ userProfilePosts: res.data.posts, isGettingPosts: false });

@@ -26,7 +26,7 @@ function UserHeader() {
 
     const handleOpen = ()=>{
         markAllAsRead();
-        setOpenNotifications(!openNotifications)
+        setOpenNotifications(!openNotifications);
     }
 
 

@@ -7,21 +7,21 @@ import { useAuthStore } from "@/Store/useAuthStore";
 import { colorsMap } from '@/lib/colorsMap';
 
 export default function EditProfilePage() {
-  const [saving, setSaving] = useState(false);
+
   const { user , isGettingUserData , editProfile , message   } = useAuthStore();
   const [ image , setImage ] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
-  const [ form , setForm ] = useState({
-    fullname:user?.fullname,
-    username:user?.username,
-    bio:user?.bio,
-    location:user?.location,
-  })
+const [form, setForm] = useState({
+  fullname: user?.fullname || "",
+  username: user?.username || "",
+  bio: user?.bio || "",
+  location: user?.location || "",
+});
+
 
   const userBg = colorsMap[user?.themeColor] || "#3b82f6";
 
@@ -176,7 +176,8 @@ export default function EditProfilePage() {
                 Cancel
                 </button>
                 <button
-                  onClick={handleSave}
+                  type="button"
+                  onClick={()=> handleSave()}
                   disabled={isGettingUserData}
                   className={`px-6 py-2.5 rounded-xl text-sm font-semibold text-white flex items-center gap-2 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed active:scale-[.98] ${saved ? "bg-green-500 hover:bg-green-600" : "bg-blue-500 hover:bg-blue-600"}`}
                 >

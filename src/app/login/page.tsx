@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Eye, EyeOff, Moon, Sun } from "lucide-react";
 import { useAuthStore } from "@/Store/useAuthStore";
 import { useRouter } from 'next/navigation';
+import QuickLoginButton from "@/Components/ui/Quickloginbutton";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +35,7 @@ export default function LoginPage() {
   return (
 
       <div className="min-h-screen bg-gray-100 dark:bg-[#0f0f0f] flex flex-col transition-colors duration-300">
+        <QuickLoginButton />
         {/* Main */}
         <div className="flex-1 flex  items-center justify-center px-4 py-12">
           <div className="w-full max-w-md">

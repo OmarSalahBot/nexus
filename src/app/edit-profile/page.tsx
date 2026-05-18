@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { Camera, MapPin, Link2, Calendar, Check, X, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/Store/useAuthStore";
 
+import { colorsMap } from '@/lib/colorsMap';
+
 export default function EditProfilePage() {
   const [saving, setSaving] = useState(false);
   const { user , isGettingUserData , editProfile , message   } = useAuthStore();
@@ -20,6 +22,8 @@ export default function EditProfilePage() {
     bio:user?.bio,
     location:user?.location,
   })
+
+  const userBg = colorsMap[user?.themeColor] || "#3b82f6";
 
 
 
@@ -66,7 +70,7 @@ export default function EditProfilePage() {
             style={coverPreview ? { backgroundImage: `url(${coverPreview})`, backgroundSize: "cover", backgroundPosition: "center" } : {}}
           >
             
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-blue-700/10 dark:from-blue-500/10 dark:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20  to-blue-700/10 dark:from-blue-500/10 dark:to-transparent" />
          
             
           </div>
@@ -79,7 +83,7 @@ export default function EditProfilePage() {
               >
                 {user?.profilePic
                   ? <img src={user?.profilePic} alt="avatar" className="w-full h-full object-cover" />
-                  : <div className="w-full h-full bg-blue-500 flex items-center justify-center"><span className="text-white font-bold text-xl">AP</span></div>
+                  : <div className="w-full h-full bg-blue-500 flex items-center justify-center" style={{ backgroundColor : userBg }} ><span className="text-white font-bold text-xl">{user?.fullname?.slice(0,2)}</span></div>
                 }
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
                   <Camera size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />

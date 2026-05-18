@@ -24,7 +24,6 @@ function page() {
 
 
   useEffect(()=>{
-      checkAuth();
     if(!user){
       router.replace('/login');
     }

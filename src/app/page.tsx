@@ -23,7 +23,10 @@ function page() {
     const { getAllPosts  , posts } = usePostStore();
 
 
-  useEffect(()=>{
+
+
+    useEffect(()=>{
+
     if(!user){
       router.replace('/login');
     }
@@ -31,6 +34,7 @@ function page() {
       getAllPosts();
       }
     }, [getAllPosts , user]);
+
 
 
   return (

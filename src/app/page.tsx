@@ -20,15 +20,18 @@ function page() {
   
 
     
-    const { getAllPosts , posts } = usePostStore();
+    const { getAllPosts  , posts } = usePostStore();
 
 
   useEffect(()=>{
+      checkAuth();
     if(!user){
       router.replace('/login');
     }
+      if(user){
       getAllPosts();
-      checkAuth();
+      }
+
     }, [getAllPosts , user]);
 
 

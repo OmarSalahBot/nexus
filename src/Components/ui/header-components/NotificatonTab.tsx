@@ -25,7 +25,7 @@ export default function NotificationTab( { notifications }:NotificationProps) {
             Notifications
           </p>
 
-          <div className="divide-y divide-gray-100 no-scrollbar pb-3 z-30 overflow-y-auto h-50 dark:divide-white/10">
+          <div className="divide-y divide-gray-100 no-scrollbar pb-3 z-30 overflow-y-auto max-h-50 dark:divide-white/10">
             { notifications ? (
               notifications?.map((n:any) => (
               <div

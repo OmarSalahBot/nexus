@@ -2,18 +2,13 @@
 // components/ProfileCard.tsx
 import { MapPin, Link2 , Calendar } from "lucide-react";
 import { useAuthStore } from "@/Store/useAuthStore";
+import { colorsMap } from '@/lib/colorsMap';
 
 
 export default function UserCard() {
   const {user} = useAuthStore();
 
-  const colorsMap: Record<string, string> = {
-    emerald: "#10b981",
-    blue: "#3b82f6",
-    purple: "#a855f7",
-    orange: "#f97316",
-    teal: "#14b8a6",
-  };
+
 
   const userBg = colorsMap[user?.themeColor] || "#3b82f6";
   

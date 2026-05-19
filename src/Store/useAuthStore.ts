@@ -43,7 +43,6 @@ export const useAuthStore = create<AuthState>((set , get)=>({
             set({ user : null });
         }finally{
             set({ isCheckingAuth: false });
-            console.log(get().user)
         }
     },
 

@@ -30,16 +30,17 @@ export default function LoginPage() {
   return (
 
       <div className="min-h-screen bg-gray-100 dark:bg-[#0f0f0f] flex flex-col transition-colors duration-300">
-        <QuickLoginButton />
+
         {/* Main */}
         <div className="flex-1 flex  items-center justify-center px-4 py-12">
           <div className="w-full max-w-md">
 
             {/* Card */}
-            <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm p-8">
-
+            <div className="bg-white dark:bg-[#1a1a1a] relative rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm p-8">
+              <QuickLoginButton />
               {/* Header */}
               <div className="mb-8 text-center">
+                
                 <div className="flex items-center justify-center gap-2 mb-6">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
                   <span className="font-bold text-gray-900 dark:text-white text-xl tracking-tight">Nexus</span>
@@ -49,7 +50,8 @@ export default function LoginPage() {
               </div>
 
               {/* Form */}
-              <div className="space-y-4">
+              
+              <div className="space-y-4 ">
                 {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">

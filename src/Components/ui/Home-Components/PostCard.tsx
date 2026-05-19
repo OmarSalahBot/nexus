@@ -151,7 +151,16 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
           {/* Input */}
           <div className="flex  gap-2 mb-8 bg-gray-100/60 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-3 focus-within:border-blue-500 transition-colors">
             <div className="w-10 h-10 rounded-full flex select-none items-center justify-center shrink-0" style={{ backgroundColor: currentUserBg }}>
-              <span className="text-white text-sm font-bold">{(user?.fullname || "Y").slice(0, 2)}</span>
+              {user?.profilePic ? 
+            (
+              <img src={user?.profilePic} alt="avatar" className="w-full h-full rounded-full object-cover" />
+            ) :
+            (
+              <span className="text-white text-sm font-semibold tracking-wide">
+              {user?.fullname?.slice(0,2)}
+              </span>
+            ) 
+          }
             </div>
             <div className="flex-1 flex items-center gap-2 bg-gray-50 dark:bg-white/[0.04] border border-gray-200 dark:border-white/10 rounded-xl px-3 py-1.5 focus-within:border-blue-500 transition-colors">
               <input

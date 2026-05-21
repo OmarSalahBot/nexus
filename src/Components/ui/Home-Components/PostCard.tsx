@@ -3,8 +3,9 @@
 import { useAuthStore } from "@/Store/useAuthStore";
 import { formatRelativeTime } from "@/lib/formatDate";
 import { useEffect, useState } from "react";
-import { Heart, MessageCircle, Send } from "lucide-react";
+import { Heart, MessageCircle, Send , Trash2  } from "lucide-react";
 import { usePostStore } from "@/Store/usePostStore";
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 
@@ -46,7 +47,9 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
   const [commentText, setCommentText] = useState("");
   const [ comments , setComments] = useState<any>("");
   const { user } = useAuthStore();
-  const { addOrRemoveLike , getAllPostComments , addComment } = usePostStore();
+  const { addOrRemoveLike , getAllPostComments , addComment , deletePost} = usePostStore();
+
+  const pathname = usePathname();
 
   const userBg = colorsMap[color] || "#3b82f6";
   const currentUserBg = colorsMap[user?.themeColor] || "#3b82f6";
@@ -66,6 +69,10 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
   fetchComments();
 }, []);
 
+
+  const handleDeletePost = () => {
+    deletePost(id);
+  }
   const handleAddComment = () => {
     if (!commentText.trim()) return;
     const addingNewComment = async ()=>{
@@ -100,7 +107,7 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
     <div className={`${idx !== 0 ? "border-t" : ""} border-gray-100 dark:border-white/10 p-4`}>
 
       {/* Header */}
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-3 mb-3 relative">
         <div className="w-12 h-12 rounded-full select-none flex items-center justify-center shrink-0" style={{ backgroundColor: userBg }}>
           {profilePic ? 
             (
@@ -117,6 +124,7 @@ export default function PostCard({ id , fullname, username, text, image, likes, 
           <Link href={`/profile/${username}`} className="font-semibold hover:underline text-sm text-gray-900 dark:text-zinc-100">{fullname}</Link>
           <p className="text-xs text-gray-400">@{username} · {formatRelativeTime(date)}</p>
         </div>
+        { pathname == `/profile/${user.username}` ? <div onClick={()=> handleDeletePost()} className="  absolute right-2 hover:text-white hover:bg-red-400 dark:hover:bg-red-950/60 text-gray-600 rounded-full p-2 duration-200  "> <Trash2 size={20} /> </div> : null }
       </div>
 
       {/* Text */}

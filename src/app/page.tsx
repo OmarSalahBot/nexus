@@ -24,9 +24,11 @@ function page() {
     const { getAllPosts  , posts , isGettingPosts} = usePostStore();
 
 
+
   useEffect(()=>{
       getAllPosts();
     },[]);
+
 
 
   return (

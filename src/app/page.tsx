@@ -10,6 +10,7 @@ import { useAuthStore } from '@/Store/useAuthStore';
 import { usePostStore } from "@/Store/usePostStore";
 import { useFollowStore } from "@/Store/useFollowStore";
 import { useRouter } from 'next/navigation';
+import PostCardSkeleton from '@/Components/ui/Loadings/PostCardSkeleton';
 
 
 function page() {
@@ -20,20 +21,13 @@ function page() {
   
 
     
-    const { getAllPosts  , posts } = usePostStore();
+    const { getAllPosts  , posts , isGettingPosts} = usePostStore();
 
 
 
-
-
-    useEffect(()=>{
-    if(!user){
-      router.replace('/login');
-    }
-      if(user){
+  useEffect(()=>{
       getAllPosts();
-      }
-    }, [getAllPosts , user]);
+    },[]);
 
 
 
@@ -49,6 +43,8 @@ function page() {
             {user ? <CreatePost /> :null}
           {/* Posts */}
           <div className=" rounded-4xl border  mt-3 dark:border-white/10 bg-white dark:bg-neutral-900 ">
+
+           { !posts || isGettingPosts ? Array.from({ length: 3 }).map((_, i) => <PostCardSkeleton key={i} />) : null }
 
             {posts?.map((post:any, idx:any) => (
               <PostCard key={idx} id={post?._id} fullname={post?.userId.fullname} image={ post?.image } idx={idx} username={post?.userId.username} 

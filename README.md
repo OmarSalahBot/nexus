@@ -31,7 +31,7 @@ It allows users to create posts, interact with others, manage their profiles, an
 
 ## 🖥️ Demo
 
-🔗 **Live Demo:** [*Coming Soon*](https://nexus-chi-pearl.vercel.app/)
+🔗 **Live Demo:** https://nexus-chi-pearl.vercel.app/
 
 ---
 

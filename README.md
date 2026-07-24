@@ -35,14 +35,6 @@ It allows users to create posts, interact with others, manage their profiles, an
 
 ---
 
-## 📂 Project Structure
-
-```
-Nexus/
-├── client/          # React + Next.js frontend
-├── server/          # Express.js backend
-└── README.md
-```
 
 home 
 <img width="1903" height="1080" alt="Screenshot (300)" src="https://github.com/user-attachments/assets/b0db723f-cc3b-4744-99b0-a7893b47e306" />
